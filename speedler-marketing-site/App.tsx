@@ -1,14 +1,13 @@
-"use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import {
-  ShieldCheck,
-  Map,
-  Settings,
-  Smartphone,
-  EyeOff,
-  CloudOff,
+import React, { useState, useEffect } from 'react';
+import { 
+  ShieldCheck, 
+  Map, 
+  Settings, 
+  BarChart3, 
+  Smartphone, 
+  EyeOff, 
+  CloudOff, 
   Download,
   Gauge,
   History,
@@ -16,10 +15,11 @@ import {
   Moon,
   Ruler,
   Share2
-} from "lucide-react";
+} from 'lucide-react';
 
 const APP_STORE_URL = "https://apps.apple.com/au/app/speedler-cycling-computer/id1453127381";
 
+// Helper components defined outside to avoid re-renders
 const Nav = () => (
   <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
     <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -34,7 +34,7 @@ const Nav = () => (
         <a href="#privacy" className="hover:text-white transition-colors">Privacy</a>
         <a href="#metrics" className="hover:text-white transition-colors">Metrics</a>
       </div>
-      <a
+      <a 
         href={APP_STORE_URL}
         className="bg-white text-black px-5 py-2 rounded-full font-bold text-sm hover:bg-cyan-400 transition-all duration-300"
       >
@@ -44,7 +44,7 @@ const Nav = () => (
   </nav>
 );
 
-const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) => (
+const FeatureCard: React.FC<{ icon: React.ReactNode; title: string; description: string }> = ({ icon, title, description }) => (
   <div className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-400/50 transition-all duration-300 group">
     <div className="w-12 h-12 rounded-xl bg-cyan-400/10 text-cyan-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
       {icon}
@@ -54,7 +54,7 @@ const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode; titl
   </div>
 );
 
-const MetricBox = ({ label, value, unit }: { label: string; value: string; unit: string }) => (
+const MetricBox: React.FC<{ label: string; value: string; unit: string }> = ({ label, value, unit }) => (
   <div className="bg-white/5 rounded-xl p-4 border border-white/5">
     <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">{label}</p>
     <div className="flex items-baseline gap-1">
@@ -64,13 +64,13 @@ const MetricBox = ({ label, value, unit }: { label: string; value: string; unit:
   </div>
 );
 
-export default function Home() {
+const App: React.FC = () => {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -97,7 +97,7 @@ export default function Home() {
               Speedler is a high-performance cycling dashboard built for riders who value privacy. Real-time metrics, beautiful ride history, and 100% local storage.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <a
+              <a 
                 href={APP_STORE_URL}
                 className="w-full sm:w-auto px-8 py-4 bg-white text-black rounded-2xl font-black text-lg flex items-center justify-center gap-3 hover:bg-cyan-400 transition-all active:scale-95 group"
               >
@@ -111,7 +111,7 @@ export default function Home() {
           </div>
 
           <div className="flex-1 relative">
-            {/* Phone Mockup */}
+            {/* Phone Mockup Placeholder */}
             <div className="relative mx-auto w-64 md:w-80 aspect-[9/19] bg-zinc-900 rounded-[3rem] border-8 border-zinc-800 shadow-2xl p-4 overflow-hidden">
               {/* Screen Content Simulation */}
               <div className="h-full w-full bg-black rounded-[2rem] flex flex-col p-6 space-y-6">
@@ -119,7 +119,7 @@ export default function Home() {
                   <div className="text-cyan-400 font-black italic">S.</div>
                   <Settings size={18} className="text-white/40" />
                 </div>
-
+                
                 <div className="text-center py-4">
                   <div className="text-[10px] uppercase tracking-[0.2em] text-white/30 mb-1">Current Speed</div>
                   <div className="text-6xl font-black italic text-cyan-400 tracking-tighter">32.4</div>
@@ -163,7 +163,7 @@ export default function Home() {
               <p className="text-xl text-black/60 leading-relaxed mb-12">
                 Most cycling apps track your location, your routines, and your identity to sell to advertisers. Speedler does the opposite.
               </p>
-
+              
               <div className="space-y-8">
                 <div className="flex gap-6">
                   <div className="flex-shrink-0 w-12 h-12 rounded-full bg-black flex items-center justify-center text-white">
@@ -180,7 +180,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="text-xl font-bold mb-2">No Tracking, No Ads</h4>
-                    <p className="text-black/60">We don&apos;t have accounts. We don&apos;t have cookies. We don&apos;t have tracking scripts.</p>
+                    <p className="text-black/60">We don't have accounts. We don't have cookies. We don't have tracking scripts.</p>
                   </div>
                 </div>
                 <div className="flex gap-6">
@@ -194,7 +194,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-
+            
             <div className="relative">
               <div className="aspect-square bg-zinc-100 rounded-[4rem] flex items-center justify-center p-12">
                  <div className="relative w-full h-full border-4 border-dashed border-black/10 rounded-full flex items-center justify-center animate-[spin_20s_linear_infinite]">
@@ -225,47 +225,47 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <FeatureCard
+            <FeatureCard 
               icon={<Gauge />}
               title="Real-time Metrics"
               description="Monitor speed, distance, time, and average/max speeds with low-latency updates during your ride."
             />
-            <FeatureCard
+            <FeatureCard 
               icon={<History />}
               title="Activity History"
               description="Keep a structured log of all your rides. Group by date or distance to track your progress over time."
             />
-            <FeatureCard
+            <FeatureCard 
               icon={<Map />}
               title="Detailed Reviews"
-              description="Review every turn with integrated route maps. Analyse pace segments and elevation profiles."
+              description="Review every turn with integrated route maps. Analyze pace segments and elevation profiles."
             />
-            <FeatureCard
+            <FeatureCard 
               icon={<Layout />}
               title="Custom Layouts"
-              description="Customise the dashboard to show the metrics you care about most. Adjust brightness for day or night."
+              description="Customize the dashboard to show the metrics you care about most. Adjust brightness for day or night."
             />
-            <FeatureCard
+            <FeatureCard 
               icon={<Ruler />}
-              title="Units & Localisation"
+              title="Units & Localization"
               description="Switch seamlessly between Metric and Imperial units. Speedler adapts to your preference."
             />
-            <FeatureCard
+            <FeatureCard 
               icon={<Moon />}
               title="Native Dark Mode"
               description="A beautiful dark interface that preserves battery life on OLED screens and reduces eye strain."
             />
-            <FeatureCard
+            <FeatureCard 
               icon={<Share2 />}
               title="Data Export"
               description="It's your data. Export your rides to standard formats for use in other applications or backups."
             />
-            <FeatureCard
+            <FeatureCard 
               icon={<Smartphone />}
               title="Native Performance"
               description="Built with native iOS technologies for buttery-smooth animations and minimal battery drain."
             />
-            <FeatureCard
+            <FeatureCard 
               icon={<EyeOff />}
               title="Zero Accounts"
               description="Open the app and start riding. No email, no password, no onboarding friction."
@@ -283,7 +283,7 @@ export default function Home() {
             Join thousands of cyclists who have reclaimed their data. Download Speedler today and experience the purest cycling computer on the App Store.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <a
+            <a 
               href={APP_STORE_URL}
               className="bg-white text-black px-10 py-5 rounded-2xl font-black text-xl hover:bg-cyan-400 transition-all flex items-center gap-4"
             >
@@ -291,7 +291,7 @@ export default function Home() {
               Get Speedler
             </a>
           </div>
-
+          
           {/* Subtle logo mark in background */}
           <div className="absolute -bottom-20 -right-20 text-[300px] font-black italic text-white/[0.03] select-none pointer-events-none">
             S.
@@ -308,9 +308,9 @@ export default function Home() {
             </div>
             <span className="text-lg font-bold tracking-tight">Speedler</span>
           </div>
-
+          
           <div className="flex gap-8 text-sm text-white/40">
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
             <a href="#" className="hover:text-white transition-colors">Support</a>
           </div>
@@ -322,4 +322,6 @@ export default function Home() {
       </footer>
     </div>
   );
-}
+};
+
+export default App;
